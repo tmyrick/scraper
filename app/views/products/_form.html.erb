@@ -12,31 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price, id: :product_price %>
+    <%= form.label :amazon_asin %>
+    <%= form.text_field :amazon_asin, id: :product_amazon_asin %>
   </div>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, id: :product_title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :number_of_reviews %>
-    <%= form.number_field :number_of_reviews, id: :product_number_of_reviews %>
-  </div>
-
-  <div class="field">
-    <%= form.label :best_seller_rank %>
-    <%= form.number_field :best_seller_rank, id: :product_best_seller_rank %>
-  </div>
-
-  <div class="field">
-    <%= form.label :inventory %>
-    <%= form.number_field :inventory, id: :product_inventory %>
+    <%= form.label :amazon_url %>
+    <%= form.text_field :amazon_url, id: :product_amazon_url %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Add product" %>
   </div>
 <% end %>

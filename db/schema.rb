@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20170829205949) do
   end
 
   create_table "products", force: :cascade do |t|
+    t.string "amazon_asin"
+    t.string "amazon_url"
     t.decimal "price"
     t.string "title"
     t.integer "number_of_reviews"

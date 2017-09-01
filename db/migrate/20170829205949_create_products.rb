@@ -1,6 +1,8 @@
 class CreateProducts < ActiveRecord::Migration[5.1]
   def change
     create_table :products do |t|
+      t.string :amazon_asin
+      t.string :amazon_url
       t.decimal :price
       t.string :title
       t.integer :number_of_reviews
