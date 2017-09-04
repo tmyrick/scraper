@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand-xl navbar-light navbar-bg">
+  <a class="navbar-brand" href="#">Amazon Lookup</a>  
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbarLg">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div class="collapse navbar-collapse" id="collapsingNavbarLg">
+    <ul class="navbar-nav">
+      <li class="nav-item <%= is_active?('/products') %>"><%= link_to "Products", '/products', class: 'nav-link' %></li>
+      <li class="nav-item <%= is_active?('/groups') %>"><%= link_to "Groups", '/groups', class: 'nav-link' %></li>      
+    </ul>
+  </div>
+</nav>
+<br>
