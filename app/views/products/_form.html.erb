@@ -1,3 +1,4 @@
+
 <%= form_with(model: product, local: true) do |form| %>
   <% if product.errors.any? %>
     <div id="error_explanation">
@@ -11,17 +12,24 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :amazon_asin %>
-    <%= form.text_field :amazon_asin, id: :product_amazon_asin %>
+  <div class="row">
+    <div class="col-md-6 col-sm-12 field">
+      <%= form.label :amazon_asin %>
+      <div>
+        <%= form.text_field :amazon_asin, id: :product_amazon_asin %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
+  <div class="row">
+    <div class="col-md-6 col-sm-12 field">
     <%= form.label :amazon_url %>
-    <%= form.text_field :amazon_url, id: :product_amazon_url %>
+    <%= form.text_area :amazon_url, id: :product_amazon_url %>
   </div>
-
+  </div>
+  
   <div class="actions">
-    <%= form.submit "Add product" %>
+    <%= form.submit "Add product", class: 'btn-success' %>
   </div>
+  <br>
 <% end %>
