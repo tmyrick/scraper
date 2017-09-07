@@ -24,11 +24,15 @@ ActiveRecord::Schema.define(version: 20170829205949) do
   create_table "products", force: :cascade do |t|
     t.string "amazon_asin"
     t.string "amazon_url"
-    t.decimal "price"
+    t.string "reviews_url"
+    t.string "price"
+    t.string "currency_code"
     t.string "title"
     t.integer "number_of_reviews"
     t.integer "best_seller_rank"
     t.integer "inventory"
+    t.text "features", default: [], array: true
+    t.text "image_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
