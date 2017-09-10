@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Group:</strong>
+  <%= @product.group.name %>
+</p>
+
+<p>
   <strong>Price:</strong>
   <%= BigDecimal(@product.price) / 100 %>
   <%= @product.currency_code %>

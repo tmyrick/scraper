@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Group</th>
       <th>Price</th>
       <th>Title</th>
       <th>Number of reviews</th>
@@ -17,6 +18,7 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
+        <td><%= product.group.name %></td>
         <td>
           <%= BigDecimal(product.price) / 100 %>
           <%= product.currency_code %>

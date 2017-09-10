@@ -4,9 +4,9 @@ class Product < ApplicationRecord
   belongs_to :group
   validate :check_limit, :on => :create
   
-  def self.new_from_asin(asin)
+  def self.new_from_asin(asin, group_id)
     item = AmazonAPI.by_asin(asin, "ItemAttributes,Reviews,SalesRank")
-    product = new_from_hash(item)
+    product = new_from_hash(item, group_id)
     images_xml = AmazonAPI.by_asin(asin, "Images")
     product.image_data = images_xml
     product
@@ -17,8 +17,8 @@ class Product < ApplicationRecord
     new_from_hash(item)
   end
   
-  def self.new_from_hash(item)
-    new = Product.new(group_id: 1)
+  def self.new_from_hash(item, group_id)
+    new = Product.new(group_id: group_id)
     new.title = item["ItemAttributes"]["Title"]
     # new.price = item["OfferSummary"]["LowestNewPrice"]["FormattedPrice"]
     new.price = item["ItemAttributes"]["ListPrice"]["Amount"]
