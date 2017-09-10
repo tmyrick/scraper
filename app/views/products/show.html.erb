@@ -2,7 +2,8 @@
 
 <p>
   <strong>Price:</strong>
-  <%= @product.price %>
+  <%= BigDecimal(@product.price) / 100 %>
+  <%= @product.currency_code %>
 </p>
 
 <p>
@@ -25,5 +26,4 @@
   <%= @product.inventory %>
 </p>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

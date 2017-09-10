@@ -1,8 +1,6 @@
 class Product < ApplicationRecord
   include AmazonAPI
 
-  validate :asin_or_url
-
   def self.new_from_asin(asin)
     item = AmazonAPI.by_asin(asin, "ItemAttributes,Reviews,SalesRank")
     product = new_from_hash(item)
@@ -33,11 +31,4 @@ class Product < ApplicationRecord
     new
   end
 
-  private
-
-  def asin_or_url
-    unless amazon_asin.blank? ^ amazon_url.blank?
-      errors.add(:base, "Specify the URL or ASIN, not both")
-    end
-  end
 end

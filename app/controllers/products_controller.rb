@@ -24,7 +24,9 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
+    if product_params["amazon_asin"]
+      @product = Product.new_from_asin(product_params["amazon_asin"])
+    end
 
     respond_to do |format|
       if @product.save
@@ -69,6 +71,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:price, :title, :number_of_reviews, :best_seller_rank, :inventory)
+      params.require(:product).permit(:amazon_asin, :amazon_url)
     end
 end

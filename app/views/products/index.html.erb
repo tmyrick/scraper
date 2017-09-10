@@ -17,13 +17,15 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
-        <td><%= product.price %></td>
+        <td>
+          <%= BigDecimal(product.price) / 100 %>
+          <%= product.currency_code %>
+        </td>
         <td><%= product.title %></td>
         <td><%= product.number_of_reviews %></td>
         <td><%= product.best_seller_rank %></td>
         <td><%= product.inventory %></td>
         <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
