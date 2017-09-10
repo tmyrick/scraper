@@ -1,9 +1,13 @@
 class Product < ApplicationRecord
   include AmazonAPI
+  include ActiveModel::Dirty 
 
   belongs_to :group
+  has_one :daily_change
+
   validate :check_limit, :on => :create
-  
+  after_update :record_if_changed
+
   def self.new_from_asin(asin, group_id)
     item = AmazonAPI.by_asin(asin, "ItemAttributes,Reviews,SalesRank")
     product = new_from_hash(item, group_id)
@@ -34,10 +38,24 @@ class Product < ApplicationRecord
     new
   end
 
+  private
+
   def check_limit
     if self.group.products.count >= 8
       errors.add(:base, "Exceeded Product limit (only 8 products allowed in a group)")
     end
   end
-  
+
+  def record_if_changed
+    puts self.saved_changes
+    record_changes if self.saved_changes.length > 0
+  end
+
+  def record_changes
+    daily = DailyChange.new
+    daily.changes_made = self.saved_changes
+    self.daily_change = daily
+    daily.save
+  end
+
 end

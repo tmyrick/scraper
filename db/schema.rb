@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829205949) do
+ActiveRecord::Schema.define(version: 20170910181330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "daily_changes", id: false, force: :cascade do |t|
+    t.bigint "product_id"
+    t.json "changes_made"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_daily_changes_on_product_id"
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
@@ -39,5 +47,6 @@ ActiveRecord::Schema.define(version: 20170829205949) do
     t.index ["group_id"], name: "index_products_on_group_id"
   end
 
+  add_foreign_key "daily_changes", "products"
   add_foreign_key "products", "groups"
 end
