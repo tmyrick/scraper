@@ -12,8 +12,10 @@
       <tr>
         <td><%= group_product.id %></td>
         <td>
-          <%= BigDecimal(group_product.price) / 100 %>
-          <%= group_product.currency_code %>
+          <%- if group_product && group_product.price %>
+            <%= BigDecimal(group_product.price) / 100 %>
+            <%= group_product.currency_code %>
+          <%- end %>
         </td>
         <td><%= group_product.title %></td>
         <td><%= link_to 'Show', group_product %></td>

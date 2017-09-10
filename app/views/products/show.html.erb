@@ -7,8 +7,10 @@
 
 <p>
   <strong>Price:</strong>
-  <%= BigDecimal(@product.price) / 100 %>
-  <%= @product.currency_code %>
+  <%- if @product && @product.price %>
+    <%= BigDecimal(@product.price) / 100 %>
+    <%= @product.currency_code %>
+  <%- end %>
 </p>
 
 <p>

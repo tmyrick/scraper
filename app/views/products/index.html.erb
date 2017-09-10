@@ -20,8 +20,10 @@
       <tr>
         <td><%= product.group.name %></td>
         <td>
-          <%= BigDecimal(product.price) / 100 %>
-          <%= product.currency_code %>
+          <%- if product && product.price %>
+            <%= BigDecimal(product.price) / 100 %>
+            <%= product.currency_code %>
+          <%- end %>
         </td>
         <td><%= product.title %></td>
         <td><%= product.number_of_reviews %></td>
