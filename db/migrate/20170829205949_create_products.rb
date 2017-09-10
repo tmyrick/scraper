@@ -1,6 +1,7 @@
 class CreateProducts < ActiveRecord::Migration[5.1]
   def change
     create_table :products do |t|
+      t.references :group, foreign_key: true  
       t.string :amazon_asin
       t.string :amazon_url
       t.string :reviews_url
@@ -12,7 +13,7 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.integer :inventory
       t.text :features, array: true, default: []      
       t.text :image_data
-      
+
       t.timestamps
     end
   end

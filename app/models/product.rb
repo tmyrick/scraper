@@ -1,6 +1,9 @@
 class Product < ApplicationRecord
   include AmazonAPI
 
+  belongs_to :group
+  validate :check_limit, :on => :create
+  
   def self.new_from_asin(asin)
     item = AmazonAPI.by_asin(asin, "ItemAttributes,Reviews,SalesRank")
     product = new_from_hash(item)
@@ -31,4 +34,10 @@ class Product < ApplicationRecord
     new
   end
 
+  def check_limit
+    if self.group.products(:reload).count > 10
+      errors.add(:base, "Exceeded Product limit (only 8 products allowed in a group)")
+    end
+  end
+  
 end

@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20170829205949) do
   end
 
   create_table "products", force: :cascade do |t|
+    t.bigint "group_id"
     t.string "amazon_asin"
     t.string "amazon_url"
     t.string "reviews_url"
@@ -35,6 +36,8 @@ ActiveRecord::Schema.define(version: 20170829205949) do
     t.text "image_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_products_on_group_id"
   end
 
+  add_foreign_key "products", "groups"
 end
