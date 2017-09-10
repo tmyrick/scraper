@@ -1,0 +1,23 @@
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Price</th>
+      <th>Title</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= group_product.id %></td>
+        <td>
+          <%= BigDecimal(group_product.price) / 100 %>
+          <%= group_product.currency_code %>
+        </td>
+        <td><%= group_product.title %></td>
+        <td><%= link_to 'Show', group_product %></td>
+      </tr>
+
+  </tbody>
+</table>

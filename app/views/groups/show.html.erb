@@ -7,3 +7,7 @@
 
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>
+<br>
+<hr>
+<h4>Products in this group</h4>
+<%= render :partial => 'products/group_product', :collection => @group.products %>
