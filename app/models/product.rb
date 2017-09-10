@@ -18,7 +18,7 @@ class Product < ApplicationRecord
   end
   
   def self.new_from_hash(item)
-    new = Product.new
+    new = Product.new(group_id: 1)
     new.title = item["ItemAttributes"]["Title"]
     # new.price = item["OfferSummary"]["LowestNewPrice"]["FormattedPrice"]
     new.price = item["ItemAttributes"]["ListPrice"]["Amount"]
@@ -35,7 +35,7 @@ class Product < ApplicationRecord
   end
 
   def check_limit
-    if self.group.products(:reload).count >= 8
+    if self.group.products.count >= 8
       errors.add(:base, "Exceeded Product limit (only 8 products allowed in a group)")
     end
   end
