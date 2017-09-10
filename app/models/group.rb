@@ -4,7 +4,7 @@ class Group < ApplicationRecord
   validate :check_limit, :on => :create
 
   def check_limit
-    if Group.count > 10
+    if Group.count >= 10
       errors.add(:base, "Exceeded Group limit (only 10 groups allowed)")
     end
   end

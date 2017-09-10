@@ -35,7 +35,7 @@ class Product < ApplicationRecord
   end
 
   def check_limit
-    if self.group.products(:reload).count > 10
+    if self.group.products(:reload).count >= 8
       errors.add(:base, "Exceeded Product limit (only 8 products allowed in a group)")
     end
   end
