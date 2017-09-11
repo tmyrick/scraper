@@ -66,7 +66,11 @@ class Product < ApplicationRecord
     parse_page = Nokogiri::HTML(page)
     text = parse_page.css('.crAvgStars').children.children.text.strip
     number = text.strip.split(' ')[0]
-    count = number.last(number.length-1)
+    if number
+      count = number.last(number.length-1)
+    else
+      nil
+    end
   end
 
   def scrape_best_seller_rank
