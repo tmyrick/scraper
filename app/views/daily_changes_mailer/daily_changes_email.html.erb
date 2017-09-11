@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h4>Hi,</h4>
+    <p>
+      Here are the product changes since yesterday.
+    </p>
+    <%- @changes.each do |change| %>
+    <hr>
+    <h4>Product ID: <%= change.product_id %></h4>
+      <%- if change.changes_made["title"] %>
+        <p><strong>Title</strong>
+        <br>old: <%= change.changes_made["title"][0] %>
+        <br>new: <%= change.changes_made["title"][1] %>
+        </p>
+      <%- end %>    
+      <%- if change.changes_made["price"] %>
+        <p><strong>Price</strong>
+        <br>old: <%= change.changes_made["price"][0].to_f / 100  %>
+        <br>new: <%= change.changes_made["price"][1].to_f / 100  %>
+        </p>
+      <%- end %>
+      <%- if change.changes_made["currency_code"] %>
+        <p><strong>Currency Code</strong>
+        <br>old: <%= change.changes_made["currency_code"][0] %>
+        <br>new: <%= change.changes_made["currency_code"][1] %>
+        </p>
+      <%- end %>      
+      <%- if change.changes_made["amazon_url"] %>
+        <p><strong>Product URL</strong>
+        <br>old: <%= change.changes_made["amazon_url"][0] %>
+        <br>new: <%= change.changes_made["amazon_url"][1] %>
+        </p>
+      <%- end %>
+      <%- if change.changes_made["reviews_url"] %>
+        <p><strong>Reviews URL</strong>
+        <br>old: <%= change.changes_made["reviews_url"][0] %>
+        <br>new: <%= change.changes_made["reviews_url"][1] %>
+        </p>
+      <%- end %>
+      <%- if change.changes_made["number_of_reviews"] %>
+        <p><strong>Number Of Reviews</strong>
+        <br>old: <%= change.changes_made["number_of_reviews"][0] %>
+        <br>new: <%= change.changes_made["number_of_reviews"][1] %>
+        </p>
+      <%- end %>
+      <%- if change.changes_made["best_seller_rank"] %>
+        <p><strong>Best Seller Rank</strong>
+        <br>old: <%= change.changes_made["best_seller_rank"][0] %>
+        <br>new: <%= change.changes_made["best_seller_rank"][1] %>
+        </p>
+      <%- end %>
+      <%- if change.changes_made["inventory"] %>
+        <p><strong>Inventory</strong>
+        <br>old: <%= change.changes_made["inventory"][0] %>
+        <br>new: <%= change.changes_made["inventory"][1] %>
+        </p>
+      <%- end %>  
+      <%- if change.changes_made["features"] %>
+        <p><strong>Features</strong>
+        <br>old: <%= change.changes_made["features"][0] %>
+        <br>new: <%= change.changes_made["features"][1] %>
+        </p>
+      <%- end %>  
+      <%- if change.changes_made["image_data"] %>
+        <p><strong>Image Data</strong>
+        <br>old: <%= change.changes_made["image_data"][0] %>
+        <br>new: <%= change.changes_made["image_data"][1] %>
+        </p>
+      <%- end %>                             
+    <%- end %>
+  </body>
+</html>
