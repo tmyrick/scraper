@@ -19,8 +19,11 @@
 
 # Learn more: http://github.com/javan/whenever
 
-# every 1.day, at: '1:00 am' do
-every 15.minutes do
-  runner 
+every 1.day, at: '1:00 am' do
+  rake 'products:refresh' 
   Rails.logger.info("Amazon api called at #{Time.now}")
+end
+
+every 1.day, at: '8:00 am' do
+  rake 'send_daily_email'
 end
