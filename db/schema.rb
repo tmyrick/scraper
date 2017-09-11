@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20170910181330) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "daily_changes", id: false, force: :cascade do |t|
+  create_table "daily_changes", force: :cascade do |t|
     t.bigint "product_id"
     t.json "changes_made"
     t.datetime "created_at", null: false

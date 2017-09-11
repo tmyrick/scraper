@@ -3,9 +3,9 @@ class Product < ApplicationRecord
   include ActiveModel::Dirty 
 
   belongs_to :group
-  has_one :daily_change
+  has_one :daily_change, dependent: :destroy
 
-  validate :check_limit, :on => :create
+  validate :check_asin, :check_limit, :on => :create
   after_update :record_if_changed
 
   def self.new_from_asin(asin, group_id)
@@ -16,9 +16,20 @@ class Product < ApplicationRecord
     product
   end
 
-  def self.new_from_url(url)
-    item = AmazonAPI.by_url(url)
-    new_from_hash(item)
+  def self.new_from_url(url, group_id)
+    path = URI.parse(url).path.downcase
+    if path.include? '/dp/'
+      asin = path.split('/dp/')[1].split('/')[0] 
+    elsif path.include? '/gp/product/'
+      asin = path.split('/gp/product/')[1].split('/')[0]
+    else
+      asin = nil
+    end
+    if asin.nil?
+      self.new(group_id: group_id)
+    else
+      new_from_asin(asin, group_id)
+    end
   end
   
   def self.new_from_hash(item, group_id)
@@ -33,8 +44,7 @@ class Product < ApplicationRecord
     new.best_seller_rank = item["SalesRank"]
     new.inventory = item["ItemAttributes"]["TotalNew"]
     new.features = item["ItemAttributes"]["Feature"]
-    # new.number_of_reviews
-    # new.image =     
+    # new.number_of_reviews 
     new
   end
 
@@ -52,10 +62,15 @@ class Product < ApplicationRecord
   end
 
   def record_changes
+    existing = DailyChange.find_by(product_id: self.id)
+    existing.delete unless existing.nil?
     daily = DailyChange.new
     daily.changes_made = self.saved_changes
     self.daily_change = daily
     daily.save
   end
 
+  def check_asin
+    self.errors.add(:amazon_url, "is invalid, does not contain ASIN") if self.amazon_asin.nil?
+  end
 end

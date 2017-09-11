@@ -24,8 +24,11 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    if product_params["amazon_asin"]
+    if !product_params["amazon_asin"].blank?
       @product = Product.new_from_asin(product_params["amazon_asin"], product_params["group_id"])
+    elsif !product_params["amazon_url"].blank?
+      # @product = Product.new(group_id: product_params["group_id"])
+      @product = Product.new_from_url(product_params["amazon_url"], product_params["group_id"])
     end
 
     respond_to do |format|
