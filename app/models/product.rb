@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  include AmazonAPI
+  include AmazonApi
   include ActiveModel::Dirty 
 
   belongs_to :group
@@ -9,17 +9,17 @@ class Product < ApplicationRecord
   after_update :record_if_changed
 
   def refresh_data
-    item = AmazonAPI.by_asin(self.amazon_asin, "ItemAttributes,Reviews,SalesRank")
+    item = AmazonApi.by_asin(self.amazon_asin, "ItemAttributes,Reviews,SalesRank")
     self.extract_data(item)
-    images_xml = AmazonAPI.by_asin(self.amazon_asin, "Images")
+    images_xml = AmazonApi.by_asin(self.amazon_asin, "Images")
     self.image_data = images_xml
     self.save
   end
 
   def self.new_from_asin(asin, group_id)
-    item = AmazonAPI.by_asin(asin, "ItemAttributes,Reviews,SalesRank")
+    item = AmazonApi.by_asin(asin, "ItemAttributes,Reviews,SalesRank")
     product = new_from_hash(item, group_id)
-    images_xml = AmazonAPI.by_asin(asin, "Images")
+    images_xml = AmazonApi.by_asin(asin, "Images")
     product.image_data = images_xml
     product
   end
@@ -54,16 +54,22 @@ class Product < ApplicationRecord
     self.amazon_url = item["DetailPageURL"]
     self.amazon_asin = item["ASIN"]
     self.reviews_url = item["CustomerReviews"]["IFrameURL"]
-    self.best_seller_rank = item["SalesRank"]
+    # self.best_seller_rank = item["SalesRank"]
+    self.best_seller_rank = self.scrape_best_seller_rank
     self.inventory = item["ItemAttributes"]["TotalNew"]
     self.features = item["ItemAttributes"]["Feature"]
     self.number_of_reviews = self.scrape_review_count
   end
 
-  private
   def scrape_review_count
     10 #TODO: scrape actual number
   end
+
+  def scrape_best_seller_rank
+    10 #TODO: scrape actual number
+  end
+
+  private
 
   def check_limit
     if self.group.products.count >= 8

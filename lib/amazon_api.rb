@@ -1,4 +1,4 @@
-module AmazonAPI
+module AmazonApi
 
   include HTTParty
 
