@@ -62,10 +62,17 @@ class Product < ApplicationRecord
   end
 
   def scrape_review_count
-    10 #TODO: scrape actual number
+    page = AmazonApi.get_html(self.reviews_url)
+    parse_page = Nokogiri::HTML(page)
+    text = parse_page.css('.crAvgStars').children.children.text.strip
+    number = text.strip.split(' ')[0]
+    count = number.last(number.length-1)
   end
 
   def scrape_best_seller_rank
+    # page = AmazonApi.get_html(self.amazon_url)
+    # parse_page = Nokogiri::HTML(page)
+    # text = parse_page.css('#SalesRank').children.children.text.strip    
     10 #TODO: scrape actual number
   end
 

@@ -48,4 +48,7 @@ module AmazonApi
     results["ItemLookupResponse"]["Items"]["Item"]
   end
 
+  def self.get_html(url)
+    HTTParty.get(url)
+  end
 end
