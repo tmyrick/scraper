@@ -8,7 +8,13 @@
 ## Configuration
 The solution uses the env gem to manage ENV vars.
 Please populate the amazon keys in the .env_COMPLETE_ME file in the root directory and then rename it to .env
-You will need to run the usual Rails commands to setup the database: db:create, db:migrate
+Run 'bundle install' to ensure all gems are installed.
+
+You will need to run the usual Rails commands to setup the database and start the app: 
+* db:create
+* db:migrate
+* You can also run db:seed which will seed 10 Groups named 'Group 1' through 'Group 10'
+* Run 'rails s' to start the app.
 
 ## Problems
 
