@@ -41,9 +41,9 @@ class Product < ApplicationRecord
   end
   
   def self.new_from_hash(item, group_id)
-    new = Product.new(group_id: group_id)
-    new.extract_data(item)
-    new
+    new_product = Product.new(group_id: group_id)
+    new_product.extract_data(item)
+    new_product
   end
 
   def extract_data(item)
