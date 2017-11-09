@@ -18,7 +18,7 @@ class Product < ApplicationRecord
 
   def self.new_from_asin(asin, group_id)
     binding.pry
-    item = AmazonApi.by_asin(asin, "ItemAttributes,Reviews,SalesRank,OfferSummary,Similarities,EditorialReview")
+    item = AmazonApi.by_asin(asin, "ItemAttributes,Reviews,SalesRank,OfferFull,Similarities,EditorialReview")
     product = new_from_hash(item, group_id)
     images_xml = AmazonApi.by_asin(asin, "Images")
     product.image_data = images_xml
