@@ -9,7 +9,7 @@ class Product < ApplicationRecord
   after_update :record_if_changed
 
   def refresh_data
-    item = AmazonApi.by_asin(self.amazon_asin, "ItemAttributes,Reviews,SalesRank")
+    item = AmazonApi.by_asin(self.amazon_asin, "ItemAttributes,Reviews,SalesRank,OfferFull,Similarities,EditorialReview")
     self.extract_data(item)
     images_xml = AmazonApi.by_asin(self.amazon_asin, "Images")
     self.image_data = images_xml
@@ -17,7 +17,8 @@ class Product < ApplicationRecord
   end
 
   def self.new_from_asin(asin, group_id)
-    item = AmazonApi.by_asin(asin, "ItemAttributes,Reviews,SalesRank")
+    binding.pry
+    item = AmazonApi.by_asin(asin, "ItemAttributes,Reviews,SalesRank,OfferSummary,Similarities,EditorialReview")
     product = new_from_hash(item, group_id)
     images_xml = AmazonApi.by_asin(asin, "Images")
     product.image_data = images_xml
@@ -59,6 +60,7 @@ class Product < ApplicationRecord
     self.inventory = item["ItemAttributes"]["TotalNew"]
     self.features = item["ItemAttributes"]["Feature"]
     self.number_of_reviews = self.scrape_review_count
+    binding.pry
   end
 
   def scrape_review_count
