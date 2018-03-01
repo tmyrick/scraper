@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170910181330) do
+ActiveRecord::Schema.define(version: 20171109084400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,23 @@ ActiveRecord::Schema.define(version: 20170910181330) do
     t.text "image_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "brand"
+    t.string "binding"
+    t.string "color"
+    t.string "manufacturer"
+    t.string "model"
+    t.string "upc"
+    t.float "lowest_new_price"
+    t.datetime "release_date"
+    t.float "lowest_used_price"
+    t.integer "total_offers"
+    t.string "more_offers_url"
+    t.string "merchant"
+    t.integer "availability"
+    t.boolean "super_saver_eligibility"
+    t.boolean "prime_eligibility"
+    t.text "similar_products"
+    t.text "editorial_review"
     t.index ["group_id"], name: "index_products_on_group_id"
   end
 

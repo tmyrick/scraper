@@ -41,7 +41,7 @@ module AmazonApi
       "AWSAccessKeyId" => ACCESS_KEY_ID,
       "AssociateTag" => ASSOCIATE_TAG,
       "ItemId" => asin,
-      "IdType" => "ASIN",
+      "IdType" => "ASINs",
       "ResponseGroup" => response_group
     }
     results = HTTParty.get(generate_request_url(params))

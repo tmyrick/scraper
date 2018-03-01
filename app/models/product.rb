@@ -17,12 +17,12 @@ class Product < ApplicationRecord
   end
 
   def self.new_from_asin(asin, group_id)
-    binding.pry
     item = AmazonApi.by_asin(asin, "ItemAttributes,Reviews,SalesRank,OfferFull,Similarities,EditorialReview")
     product = new_from_hash(item, group_id)
     images_xml = AmazonApi.by_asin(asin, "Images")
     product.image_data = images_xml
     product
+    binding.pry
   end
 
   def self.new_from_url(url, group_id)
@@ -55,12 +55,28 @@ class Product < ApplicationRecord
     self.amazon_url = item["DetailPageURL"]
     self.amazon_asin = item["ASIN"]
     self.reviews_url = item["CustomerReviews"]["IFrameURL"]
-    # self.best_seller_rank = item["SalesRank"]
-    self.best_seller_rank = self.scrape_best_seller_rank
+    self.best_seller_rank = item["SalesRank"]
+    # self.best_seller_rank = self.scrape_best_seller_rank
     self.inventory = item["ItemAttributes"]["TotalNew"]
     self.features = item["ItemAttributes"]["Feature"]
     self.number_of_reviews = self.scrape_review_count
-    binding.pry
+    self.brand = item["ItemAttributes"]["Brand"]
+    self.binding = item["ItemAttributes"]["Binding"]
+    self.color = item["ItemAttributes"]["Color"]
+    self.manufacturer = item["ItemAttributes"]["Manufacturer"]
+    self.model = item["ItemAttributes"]["Model"]
+    self.upc = item["ItemAttributes"]["Upc"]
+    self.release_date = item["ItemAttributes"]["ReleaseDate"]
+    self.lowest_new_price = item["OfferSummary"]["LowestNewPrice"]
+    self.lowest_used_price = item["OfferSummary"]["LowestUsedPrice"]
+    self.total_offers = item["Offers"]["TotalOffers"]
+    self.more_offers_url = item["Offers"]["MoreOffersUrl"]
+    self.merchant = item["Offers"]["Offer"]["Merchant"]["Name"]
+    self.availability = item["Offers"]["Offer"]["OfferListing"]["AvailabilityAttributes"]
+    self.prime_eligibility = item["Offers"]["Offer"]["OfferListing"]["IsEligibleForPrime"]
+    self.super_saver_eligibility = item["Offers"]["Offer"]["OfferListing"]["IsEligibleForSuperSaverShipping"]
+    self.similar_products = item["SimilarProducts"]["SimilarProduct"]
+    self.editorial_review = item["EditorialReview"]
   end
 
   def scrape_review_count
